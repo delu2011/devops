@@ -1,6 +1,6 @@
 String project        = 'cln'
 String app            = 'dams'
-String autodams       = autodams
+String autodams       = 'autodams'
 
 String basePath       = "${project}-${app}"
 String gitRepo        = 'git@github.com:genomicsengland/geldam-scripts.git'
