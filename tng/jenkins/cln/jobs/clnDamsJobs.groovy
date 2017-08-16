@@ -63,7 +63,7 @@ shell 'cp $VERSION /var/www/repo'
         //------ -++++++++++++++++++++-----------
 
 // Phased Jobs
-folder(basePath-autodams) {
+folder(basePath)-autodams {
     description "${project} - ${app} - auto-dams"
 }
 
