@@ -62,6 +62,11 @@ shell 'cp $VERSION /var/www/repo'
 
         //------ -++++++++++++++++++++-----------
 
+// Phased Jobs
+folder(basePath-autodams) {
+    description "${project} - ${app} - auto-dams"
+}
+
 
 multiJob("$basePath/${app.toLowerCase()}-deploy-perf") {
     parameters {
