@@ -1,11 +1,13 @@
 String project        = 'cln'
 String app            = 'dams'
+String autodams       = autodams
 
 String basePath       = "${project}-${app}"
 String gitRepo        = 'git@github.com:genomicsengland/geldam-scripts.git'
 String gitCheckout    = 'master'
 String gitCredentials = 'deploy'
 String phasedPath     = "$basePath/phased"
+String autobasePath   = "${project}-${app}-${autodams}"
 
 folder(basePath) {
     description "${project} - ${app} Related Builds"
@@ -63,8 +65,8 @@ shell 'cp $VERSION /var/www/repo'
         //------ -++++++++++++++++++++-----------
 
 // Phased Jobs
-folder(basePath)-autodams {
-    description "${project} - ${app} - auto-dams"
+folder(autobasePath) {
+    description "${project} - ${app} - ${autodams}"
 }
 
 
