@@ -63,6 +63,11 @@ shell 'cp $VERSION /var/www/repo'
         //------ -++++++++++++++++++++-----------
 
 
+folder(phasedPath-auto1){
+    description "${project} - ${app} - auto1"
+}
+
+
 // Phased Jobs
 folder(phasedPath) {
     description "${project} - ${app} - phased Builds"
