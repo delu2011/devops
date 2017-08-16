@@ -63,46 +63,6 @@ shell 'cp $VERSION /var/www/repo'
         //------ -++++++++++++++++++++-----------
 
 
-multiJob("$basePath/${app.toLowerCase()}-deploy-auto-1") {
-    parameters {
-        //stringParam(name,value,descrioption)
-        choiceParam('ENVIRONMENT', ['test-damsauto'])
-    }
-    wrappers {
-        colorizeOutput()
-        preBuildCleanup()
-    }
-    steps {
-        shell '''
-# Fetch latest artifact
-wget http://localhost/repo/geldam-latest.tar.gz
-
-# Rename artifact
-mv geldam-latest.tar.gz geldam.tar.gz
-
-# Extract Artifact
-tar -xzf geldam.tar.gz
-        '''
-        phase('Deploy Services') {
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-burst')
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-frec')
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-mercury')
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-openclinica')
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-sample-tracking')
-            phaseJob('cln-dams/cln-dams-auto/phased/deploy-labkey')
-        }
-        shell '''
-SM_HOST='cln-prod-core-services-01.gel.zone'
-SM_TARGET="cln-${ENVIRONMENT}-frec-01.gel.zone, cln-${ENVIRONMENT}-lk-01.gel.zone, cln-${ENVIRONMENT}-oc-01.gel.zone"
-# Run Salt Highstate
-ssh deploy@${SM_HOST} sudo "salt -L '${SM_TARGET}' --state-output=changes state.highstate queue=True"
-        '''
-    }
-    publishers {
-        chucknorris()
-    }
-}
-
 // Phased Jobs
 folder(phasedPath) {
     description "${project} - ${app} - phased Builds"
